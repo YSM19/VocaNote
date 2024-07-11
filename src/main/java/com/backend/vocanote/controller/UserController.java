@@ -37,14 +37,15 @@ public class UserController {
     @PostMapping
     public String createUser(@RequestBody UserDTO userDTO) {
         log.info("Create new user - PostMapping");
+        userService.createUser(userDTO);
         // userDTO 객체를 사용하여 사용자 생성 로직 수행
-        return "User created with ID: " + userDTO.getId();
+        return "User created with name: " + userDTO.getName();
     }
 
     @PutMapping("/{id}")
     public String updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-//        user.setId(id);
         log.info("Update user - PutMapping");
+        userService.updateUser(id, userDTO);
         // id와 userDTO 객체를 사용하여 사용자 업데이트 로직 수행
         return "User with ID " + id + " updated with name " + userDTO.getName();
     }
