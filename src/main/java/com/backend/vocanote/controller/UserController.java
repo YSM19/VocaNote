@@ -1,5 +1,6 @@
 package com.backend.vocanote.controller;
 
+import com.backend.vocanote.dto.UserDTO;
 import com.backend.vocanote.entity.User;
 import com.backend.vocanote.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,16 +35,18 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public String createUser(@RequestBody UserDTO userDTO) {
         log.info("Create new user - PostMapping");
-        return userService.saveUser(user);
+        // userDTO 객체를 사용하여 사용자 생성 로직 수행
+        return "User created with ID: " + userDTO.getId();
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
+    public String updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+//        user.setId(id);
         log.info("Update user - PutMapping");
-        return userService.saveUser(user);
+        // id와 userDTO 객체를 사용하여 사용자 업데이트 로직 수행
+        return "User with ID " + id + " updated with name " + userDTO.getName();
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.backend.vocanote.service;
 
+import com.backend.vocanote.dto.UserDTO;
 import com.backend.vocanote.entity.User;
 import com.backend.vocanote.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,18 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public void createUser(UserDTO userDTO) {
+        User user = new User();
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        userRepository.save(user);
+    }
+
+    public void updateUser(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
