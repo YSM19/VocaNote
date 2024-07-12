@@ -8,6 +8,7 @@ public class VocaNoteTApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(VocaNoteTApplication.class, args);
+        // modif
     }
 
 }
