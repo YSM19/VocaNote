@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,23 +22,29 @@ public class QuizContentService {
 
     private final Path root = Paths.get("uploads");
 
+    // Create
     public QuizContent createQuizContent(QuizContentDTO quizContentDTO) throws IOException {
         String filename = saveImage(quizContentDTO.getImage());
 
         QuizContent quizContent = new QuizContent();
         quizContent.setName(quizContentDTO.getName());
         quizContent.setDescription(quizContentDTO.getDescription());
-
-        // 상대경로
-//        quizContent.setImagePath("/uploads/" + filename);
-
-        // 이미지 파일 처리
-        if (quizContentDTO.getImage() != null && !quizContentDTO.getImage().isEmpty()) {
-            byte[] imageBytes = quizContentDTO.getImage().getBytes();
-            quizContent.setImage(imageBytes);
-        }
+        // 이미지 경로를 저장 - 상대 경로
+        quizContent.setImagePath("/uploads/" + filename);
 
         return quizContentRepository.save(quizContent);
+    }
+
+    // Update
+    public QuizContent getQuizContentById(Long id) {
+        Optional<QuizContent> quizContent = quizContentRepository.findById(id);
+        return quizContent.orElseThrow(() -> new RuntimeException("QuizContent not found"));
+    }
+
+    // Delete
+    public void deleteQuizContentById(Long id) {
+        QuizContent quizContent = getQuizContentById(id);
+        quizContentRepository.delete(quizContent);
     }
 
     private String saveImage(MultipartFile file) throws IOException {
