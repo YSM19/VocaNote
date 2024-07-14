@@ -6,10 +6,7 @@ import com.backend.vocanote.service.QuizContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -20,6 +17,7 @@ public class QuizContentController {
     @Autowired
     private QuizContentService quizContentService;
 
+    // Create
     @PostMapping
     public ResponseEntity<QuizContent> createQuizContent(@ModelAttribute QuizContentDTO quizContentDTO) {
         try {
@@ -33,4 +31,19 @@ public class QuizContentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // HTTP 500 Internal Server Error 반환
         }
     }
+
+    // Read
+    @GetMapping("/{id}")
+    public ResponseEntity<QuizContent> getQuizContent(@PathVariable Long id) {
+        QuizContent quizContent = quizContentService.getQuizContentById(id);
+        return ResponseEntity.ok(quizContent);
+    }
+
+    // Delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<QuizContent> deleteQuizContent(@PathVariable Long id) {
+        quizContentService.deleteQuizContentById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -12,7 +12,6 @@ public class QuizContentDTO {
     @Size(max = 100, message = "Name can have up to 100 characters")
     private String name;
 
-    @NotEmpty(message = "Name is required")
     @Size(max = 1000, message = "Description can have up to 1000 characters")
     private String description;
 
