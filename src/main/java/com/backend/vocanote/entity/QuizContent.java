@@ -18,6 +18,9 @@ public class QuizContent { // 퀴즈문제
     @Column
     private String description;
 
+//    @Column
+//    private String imagePath;
+
     @Column
-    private String imagePath;
+    private byte[] image;
 }

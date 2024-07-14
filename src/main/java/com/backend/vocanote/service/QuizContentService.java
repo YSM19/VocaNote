@@ -27,7 +27,15 @@ public class QuizContentService {
         QuizContent quizContent = new QuizContent();
         quizContent.setName(quizContentDTO.getName());
         quizContent.setDescription(quizContentDTO.getDescription());
-        quizContent.setImagePath("/uploads/" + filename);
+
+        // 상대경로
+//        quizContent.setImagePath("/uploads/" + filename);
+
+        // 이미지 파일 처리
+        if (quizContentDTO.getImage() != null && !quizContentDTO.getImage().isEmpty()) {
+            byte[] imageBytes = quizContentDTO.getImage().getBytes();
+            quizContent.setImage(imageBytes);
+        }
 
         return quizContentRepository.save(quizContent);
     }
