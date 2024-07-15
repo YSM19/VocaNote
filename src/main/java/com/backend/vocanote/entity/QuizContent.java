@@ -1,10 +1,13 @@
 package com.backend.vocanote.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "quizcontent")
 public class QuizContent { // 퀴즈문제
 
