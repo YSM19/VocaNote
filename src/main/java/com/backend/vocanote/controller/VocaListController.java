@@ -1,8 +1,8 @@
 package com.backend.vocanote.controller;
 
-import com.backend.vocanote.dto.QuizContentDTO;
-import com.backend.vocanote.entity.QuizContent;
-import com.backend.vocanote.service.QuizContentService;
+import com.backend.vocanote.dto.VocaListDTO;
+import com.backend.vocanote.entity.VocaList;
+import com.backend.vocanote.service.VocaListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +12,17 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/quizcontent")
-public class QuizContentController {
+public class VocaListController {
 
     @Autowired
-    private QuizContentService quizContentService;
+    private VocaListService vocaListService;
 
     // Create
     @PostMapping
-    public ResponseEntity<QuizContent> createQuizContent(@ModelAttribute QuizContentDTO quizContentDTO) {
+    public ResponseEntity<VocaList> createQuizContent(@ModelAttribute VocaListDTO vocaListDTO) {
         try {
-            QuizContent createdQuizContent = quizContentService.createQuizContent(quizContentDTO);
-            return ResponseEntity.ok(createdQuizContent); // HTTP 200 OK와 함께 createdQuiz 객체를 반환
+            VocaList createdVocaList = vocaListService.createQuizContent(vocaListDTO);
+            return ResponseEntity.ok(createdVocaList); // HTTP 200 OK와 함께 createdQuiz 객체를 반환
         } catch (IOException e) {
             return ResponseEntity.badRequest().build(); // HTTP 400 Bad Request 반환
         } catch (Exception e) {
@@ -34,15 +34,15 @@ public class QuizContentController {
 
     // Read
     @GetMapping("/{id}")
-    public ResponseEntity<QuizContent> getQuizContent(@PathVariable Long id) {
-        QuizContent quizContent = quizContentService.findQuizContentById(id);
-        return ResponseEntity.ok(quizContent);
+    public ResponseEntity<VocaList> getQuizContent(@PathVariable Long id) {
+        VocaList vocaList = vocaListService.findQuizContentById(id);
+        return ResponseEntity.ok(vocaList);
     }
 
     // Delete
     @DeleteMapping("/{id}")
-    public ResponseEntity<QuizContent> deleteQuizContent(@PathVariable Long id) {
-        quizContentService.deleteQuizContentById(id);
+    public ResponseEntity<VocaList> deleteQuizContent(@PathVariable Long id) {
+        vocaListService.deleteQuizContentById(id);
         return ResponseEntity.noContent().build();
     }
 

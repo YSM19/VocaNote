@@ -1,11 +1,10 @@
 package com.backend.vocanote.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class QuizDTO {
+public class VocaContentDTO {
 
     @NotEmpty(message = "ID is required")
     private Long id;
