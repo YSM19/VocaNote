@@ -5,6 +5,7 @@ import com.backend.vocanote.entity.User;
 import com.backend.vocanote.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,41 +19,48 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // Read
+    // findAll
     @GetMapping
-    public List<User> findAllUsers(@PathVariable Long id) {
+    public ResponseEntity<List<User>> findAllUsers() {
         log.info("Find all users - Getmapping");
-        return userService.findAllUsers();
+        List<User> users = userService.findAllUsers();
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(users);
     }
-
+    // findById
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        log.info("Find user by id - Getmapping");
         User user = userService.findUserById(id);
         if (user != null) {
             return ResponseEntity.ok(user);
         }
-        log.info("Find user by id - Getmapping");
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    // create
     @PostMapping
-    public String createUser(@RequestBody UserDTO userDTO) {
-        log.info("Create new user - PostMapping");
-        userService.createUser(userDTO);
-        // userDTO 객체를 사용하여 사용자 생성 로직 수행
-        return "User created with name: " + userDTO.getName();
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+        User user = userService.createUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
+    // update
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        log.info("Update user - PutMapping");
-        userService.updateUser(id, userDTO);
-        // id와 userDTO 객체를 사용하여 사용자 업데이트 로직 수행
-        return "User with ID " + id + " updated with name " + userDTO.getName();
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        User user = userService.updateUser(id, userDTO);
+
+        return ResponseEntity.ok(user);
     }
 
+    // delete
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        log.info("Delete user - DeleteMapping");
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

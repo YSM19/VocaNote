@@ -1,15 +1,19 @@
 package com.backend.vocanote.service;
 
 import com.backend.vocanote.dto.QuizDTO;
+import com.backend.vocanote.entity.Quiz;
+
+import java.util.List;
 
 public interface QuizService {
 
-    public QuizDTO readQuiz(Long id);
+    public List<Quiz> findAllQuiz();
+    public Quiz findQuizById(Long id);
 
-    public boolean createQuiz(QuizDTO quizDTO);
+    public Quiz createQuiz(QuizDTO quizDTO);
 
-    public boolean updateQuiz(QuizDTO quizDTO);
+    public Quiz updateQuiz(Long id, QuizDTO quizDTO);
 
-    public boolean deleteQuiz(Long id);
+    public void deleteQuizById(Long id);
 
 }

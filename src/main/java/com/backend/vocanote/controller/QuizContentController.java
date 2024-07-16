@@ -35,7 +35,7 @@ public class QuizContentController {
     // Read
     @GetMapping("/{id}")
     public ResponseEntity<QuizContent> getQuizContent(@PathVariable Long id) {
-        QuizContent quizContent = quizContentService.getQuizContentById(id);
+        QuizContent quizContent = quizContentService.findQuizContentById(id);
         return ResponseEntity.ok(quizContent);
     }
 

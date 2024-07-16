@@ -7,9 +7,12 @@ import lombok.Data;
 @Data
 public class QuizDTO {
 
+    @NotEmpty(message = "ID is required")
+    private Long id;
+
     @NotEmpty(message = "Word is required")
     private String word;
 
-    @NotEmpty(message = "Kwddddord is required")
+    @NotEmpty(message = "Kword is required")
     private String koreanWord;
 }

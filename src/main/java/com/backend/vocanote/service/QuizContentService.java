@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,15 +36,35 @@ public class QuizContentService {
         return quizContentRepository.save(quizContent);
     }
 
-    // Update
-    public QuizContent getQuizContentById(Long id) {
+    // Read
+    // findAll
+    public List<QuizContent> findAllQuizContent() {
+        return quizContentRepository.findAll();
+    }
+    // findById
+    public QuizContent findQuizContentById(Long id) {
         Optional<QuizContent> quizContent = quizContentRepository.findById(id);
         return quizContent.orElseThrow(() -> new RuntimeException("QuizContent not found"));
     }
 
+    // Update
+    public QuizContent updateQuizContent(Long id, QuizContentDTO quizContentDTO) throws IOException {
+        QuizContent quizContent = findQuizContentById(id);
+
+        quizContent.setName(quizContentDTO.getName());
+        quizContent.setDescription(quizContentDTO.getDescription());
+
+        // 이미지
+        if (quizContentDTO.getImage() != null && !quizContentDTO.getImage().isEmpty()) {
+            String filename = saveImage(quizContentDTO.getImage());
+            quizContent.setImagePath("/uploads/" + filename);
+        }
+        return quizContentRepository.save(quizContent);
+    }
+
     // Delete
     public void deleteQuizContentById(Long id) {
-        QuizContent quizContent = getQuizContentById(id);
+        QuizContent quizContent = findQuizContentById(id);
         quizContentRepository.delete(quizContent);
     }
 
