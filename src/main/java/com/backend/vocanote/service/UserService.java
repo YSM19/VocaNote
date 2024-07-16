@@ -23,15 +23,14 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public boolean createUser(UserDTO userDTO) {
+    public User createUser(UserDTO userDTO) {
         User user = new User();
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         userRepository.save(user);
-        return true;
     }
 
-    public boolean updateUser(Long id, UserDTO userDTO) {
+    public User updateUser(Long id, UserDTO userDTO) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             User existingUser = user.get();
@@ -39,17 +38,14 @@ public class UserService {
             existingUser.setEmail(userDTO.getEmail());
 
             userRepository.save(existingUser);
-            return true;
         }
-        return false;
+        return ;
     }
 
-    public boolean deleteUser(Long id) {
+    public void deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             userRepository.deleteById(id);
-            return true;
         }
-        return false;
     }
 }
