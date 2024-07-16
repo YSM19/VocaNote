@@ -43,20 +43,21 @@ public class UserController {
 
     // create
     @PostMapping
-    public ResponseEntity<String> createUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+        User createUser = userService.createUser(userDTO);
+
         log.info("Create new user - PostMapping");
         boolean iscreated = userService.createUser(userDTO);
         if (iscreated) {
-            return ResponseEntity.ok("User with ID " + id + " updated with name " + userDTO.getName());
+            return ResponseEntity.userDTO.getName();
         }
         // userDTO 객체를 사용하여 사용자 생성 로직 수행
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("User created with name: " + id + "not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     // update
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         log.info("Update user - PutMapping");
         boolean isUpdated = userService.updateUser(id, userDTO);
         if (isUpdated) {
