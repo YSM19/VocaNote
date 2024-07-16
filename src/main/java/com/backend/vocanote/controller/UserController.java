@@ -44,37 +44,23 @@ public class UserController {
     // create
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
-        User createUser = userService.createUser(userDTO);
-
-        log.info("Create new user - PostMapping");
-        boolean iscreated = userService.createUser(userDTO);
-        if (iscreated) {
-            return ResponseEntity.userDTO.getName();
-        }
-        // userDTO 객체를 사용하여 사용자 생성 로직 수행
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        User user = userService.createUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     // update
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        log.info("Update user - PutMapping");
-        boolean isUpdated = userService.updateUser(id, userDTO);
-        if (isUpdated) {
-            return ResponseEntity.ok("User with ID " + id + " updated with name " + userDTO.getName());
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("User with ID " + id + " updated with name " + userDTO.getName());
+        User user = userService.updateUser(id, userDTO);
+
+        return ResponseEntity.ok(user);
     }
 
     // delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        log.info("Delete user - DeleteMapping");
-        boolean isDeleted = userService.deleteUser(id);
-        if (isDeleted) {
-            return ResponseEntity.noContent().build();
-        }
+        userService.deleteUser(id);
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

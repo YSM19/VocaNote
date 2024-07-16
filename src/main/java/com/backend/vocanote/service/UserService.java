@@ -27,19 +27,17 @@ public class UserService {
         User user = new User();
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
-        userRepository.save(user);
+
+        return userRepository.save(user);
     }
 
     public User updateUser(Long id, UserDTO userDTO) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            User existingUser = user.get();
+        return userRepository.findById(id).map(existingUser -> {
             existingUser.setName(userDTO.getName());
             existingUser.setEmail(userDTO.getEmail());
+            return userRepository.save(existingUser);
+        }).orElseThrow(() -> new RuntimeException("User not found"));
 
-            userRepository.save(existingUser);
-        }
-        return ;
     }
 
     public void deleteUser(Long id) {
