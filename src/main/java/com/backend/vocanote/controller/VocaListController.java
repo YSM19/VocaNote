@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/quizcontent")
+@RequestMapping("/api/vocalist")
 public class VocaListController {
 
     @Autowired
@@ -19,10 +19,10 @@ public class VocaListController {
 
     // Create
     @PostMapping
-    public ResponseEntity<VocaList> createQuizContent(@ModelAttribute VocaListDTO vocaListDTO) {
+    public ResponseEntity<VocaList> createVocaList(@ModelAttribute VocaListDTO vocaListDTO) {
         try {
-            VocaList createdVocaList = vocaListService.createQuizContent(vocaListDTO);
-            return ResponseEntity.ok(createdVocaList); // HTTP 200 OK와 함께 createdQuiz 객체를 반환
+            VocaList createdVocaList = vocaListService.createVocaList(vocaListDTO);
+            return ResponseEntity.ok(createdVocaList); // HTTP 200 OK와 함께 createdVocaList 객체를 반환
         } catch (IOException e) {
             return ResponseEntity.badRequest().build(); // HTTP 400 Bad Request 반환
         } catch (Exception e) {
@@ -34,15 +34,15 @@ public class VocaListController {
 
     // Read
     @GetMapping("/{id}")
-    public ResponseEntity<VocaList> getQuizContent(@PathVariable Long id) {
-        VocaList vocaList = vocaListService.findQuizContentById(id);
+    public ResponseEntity<VocaList> getVocaList(@PathVariable Long id) {
+        VocaList vocaList = vocaListService.findVocaListById(id);
         return ResponseEntity.ok(vocaList);
     }
 
     // Delete
     @DeleteMapping("/{id}")
-    public ResponseEntity<VocaList> deleteQuizContent(@PathVariable Long id) {
-        vocaListService.deleteQuizContentById(id);
+    public ResponseEntity<VocaList> deleteVocaList(@PathVariable Long id) {
+        vocaListService.deleteVocaListById(id);
         return ResponseEntity.noContent().build();
     }
 

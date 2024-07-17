@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface VocaContentService {
 
-    public List<VocaContent> findAllQuiz();
-    public VocaContent findQuizById(Long id);
+    public List<VocaContent> findAllVocaContent();
+    public VocaContent findVocaContentById(Long id);
 
-    public VocaContent createQuiz(VocaContentDTO vocaContentDTO);
+    public VocaContent createVocaContent(VocaContentDTO vocaContentDTO);
 
-    public VocaContent updateQuiz(Long id, VocaContentDTO vocaContentDTO);
+    public VocaContent updateVocaContent(Long id, VocaContentDTO vocaContentDTO);
 
-    public void deleteQuizById(Long id);
+    public void deleteVocaContentById(Long id);
 
 }

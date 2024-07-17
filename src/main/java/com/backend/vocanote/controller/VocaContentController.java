@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/quiz")
+@RequestMapping("/api/vocacontent")
 public class VocaContentController {
 
     @Autowired
@@ -17,9 +17,9 @@ public class VocaContentController {
 
     // read
     // findById
-    @GetMapping
-    public ResponseEntity<VocaContent> findQuizById(@PathVariable Long id) {
-        VocaContent vocaContent = vocaContentService.findQuizById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<VocaContent> findVocaContentById(@PathVariable Long id) {
+        VocaContent vocaContent = vocaContentService.findVocaContentById(id);
         if (vocaContent != null) {
             return ResponseEntity.ok(vocaContent);
         }
@@ -28,9 +28,30 @@ public class VocaContentController {
 
     // create
     @PostMapping
-    public ResponseEntity<VocaContent> createQuiz(@RequestBody VocaContentDTO vocaContentDTO) {
-
+    public ResponseEntity<VocaContent> createVocaContent(@RequestBody VocaContentDTO vocaContentDTO) {
+        VocaContent vocaContent = vocaContentService.createVocaContent(vocaContentDTO);
+        if (vocaContent != null) {
+            return ResponseEntity.ok(vocaContent);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    // update
+    @PutMapping("/{id}")
+    public ResponseEntity<VocaContent> updateVocaContent(@PathVariable Long id, @RequestBody VocaContentDTO vocaContentDTO) {
+        VocaContent vocaContent = vocaContentService.updateVocaContent(id, vocaContentDTO);
+        if (vocaContent != null) {
+            return ResponseEntity.ok(vocaContent);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+    // delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteVocaContent(@PathVariable Long id) {
+        vocaContentService.deleteVocaContentById(id);
+
+        return ResponseEntity.noContent().build();
+    }
 
 }

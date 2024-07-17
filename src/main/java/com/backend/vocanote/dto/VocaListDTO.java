@@ -29,7 +29,7 @@ public class VocaListDTO {
                 .id(id)
                 .name(name)
                 .description(description)
-                .imagePath(imagePath)
+//                .imagePath(imagePath)
                 .build();
     }
 
@@ -38,7 +38,7 @@ public class VocaListDTO {
                 .id(vocaList.getId())
                 .name(vocaList.getName())
                 .description(vocaList.getDescription())
-                .imagePath(vocaList.getImagePath())
+//                .imagePath(vocaList.getImagePath())
                 .build();
     }
 }

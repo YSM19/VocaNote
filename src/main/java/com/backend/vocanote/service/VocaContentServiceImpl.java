@@ -21,17 +21,17 @@ public class VocaContentServiceImpl implements VocaContentService {
 
     // read
     // findAll
-    public List<VocaContent> findAllQuiz() {
+    public List<VocaContent> findAllVocaContent() {
         return vocaContentRepository.findAll();
     }
     // findById
-    public VocaContent findQuizById(Long id) {
-        Optional<VocaContent> quiz = vocaContentRepository.findById(id);
-        return quiz.orElseThrow(() -> new RuntimeException("Quiz not found"));
+    public VocaContent findVocaContentById(Long id) {
+        Optional<VocaContent> vocaContent = vocaContentRepository.findById(id);
+        return vocaContent.orElseThrow(() -> new RuntimeException("VocaContent is not found"));
     }
 
     // create
-    public VocaContent createQuiz(VocaContentDTO vocaContentDTO) {
+    public VocaContent createVocaContent(VocaContentDTO vocaContentDTO) {
 
         VocaContent vocaContent = new VocaContent();
         vocaContent.setWord(vocaContentDTO.getWord());
@@ -41,8 +41,8 @@ public class VocaContentServiceImpl implements VocaContentService {
     }
 
     // update
-    public VocaContent updateQuiz(Long id, VocaContentDTO vocaContentDTO) {
-        VocaContent vocaContent = findQuizById(id);
+    public VocaContent updateVocaContent(Long id, VocaContentDTO vocaContentDTO) {
+        VocaContent vocaContent = findVocaContentById(id);
         vocaContent.setWord(vocaContentDTO.getWord());
         vocaContent.setKoreanWord(vocaContentDTO.getKoreanWord());
 
@@ -50,8 +50,8 @@ public class VocaContentServiceImpl implements VocaContentService {
     }
 
     // delete
-    public void deleteQuizById(Long id) {
-        VocaContent vocaContent = findQuizById(id);
+    public void deleteVocaContentById(Long id) {
+        VocaContent vocaContent = findVocaContentById(id);
         vocaContentRepository.delete(vocaContent);
 
     }
