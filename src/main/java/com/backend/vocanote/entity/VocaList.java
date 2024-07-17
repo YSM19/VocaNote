@@ -5,11 +5,12 @@ import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "quizcontent")
-public class QuizContent { // 퀴즈문제
+@Table(name = "vocalist")
+public class VocaList { // 퀴즈문제
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

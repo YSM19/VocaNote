@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "quiz")
-public class Quiz { // 퀴즈 하나하나
+@Table(name = "voca")
+public class VocaContent { // 퀴즈 하나하나
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,16 +1,15 @@
 package com.backend.vocanote.dto;
 
-import com.backend.vocanote.entity.QuizContent;
+import com.backend.vocanote.entity.VocaList;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class QuizContentDTO {
+public class VocaListDTO {
 
     @NotEmpty(message = "ID is required")
     private Long id;
@@ -25,21 +24,21 @@ public class QuizContentDTO {
 //    private MultipartFile image;
     private String imagePath;
 
-    public QuizContent toEntity() {
-        return QuizContent.builder()
+    public VocaList toEntity() {
+        return VocaList.builder()
                 .id(id)
                 .name(name)
                 .description(description)
-                .imagePath(imagePath)
+//                .imagePath(imagePath)
                 .build();
     }
 
-    public static QuizContentDTO toDTO(QuizContent quizContent) {
-        return QuizContentDTO.builder()
-                .id(quizContent.getId())
-                .name(quizContent.getName())
-                .description(quizContent.getDescription())
-                .imagePath(quizContent.getImagePath())
+    public static VocaListDTO toDTO(VocaList vocaList) {
+        return VocaListDTO.builder()
+                .id(vocaList.getId())
+                .name(vocaList.getName())
+                .description(vocaList.getDescription())
+//                .imagePath(vocaList.getImagePath())
                 .build();
     }
 }
